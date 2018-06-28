@@ -1,0 +1,22 @@
+#stitch two 2 images
+# h, w, z = imgchange1.shape
+
+# # Find min and max x, y of new image
+# p = np.array([[0, w, w, 0], [0, 0, h, h], [1, 1, 1, 1]])
+# p_prime = np.dot(HomographyMatrix, p)
+
+# yrow = p_prime[1] / p_prime[2]
+# xrow = p_prime[0] / p_prime[2]
+# ymin = min(yrow)
+# xmin = min(xrow)
+# ymax = max(yrow)
+# xmax = max(xrow)
+
+# # Make new matrix that removes offset and multiply by homography
+# new_mat = np.array([[1, 0, -1 * xmin], [0, 1, -1 * ymin], [0, 0, 1]])
+# homography = np.dot(new_mat, HomographyMatrix)
+
+# # height and width of new image frame
+# height = int(round(ymax - ymin))
+# width = int(round(xmax - xmin))
+# size = (width, height)
