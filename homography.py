@@ -33,9 +33,10 @@ def detect(imgUnchange, imgchange):
         print "Not enough matches are found - %d/%d" % (len(good),MIN)
         matchesMask = None
     counter=0
-    for i in range(0,len(matchesMask)):
-        if matchesMask[i]==1:
-            counter+=1
+    if matchesMask != None:
+        for i in range(0,len(matchesMask)):
+            if matchesMask[i]==1:
+                counter+=1
     return HomographyMatrix,counter
 
 
@@ -119,7 +120,7 @@ def getInliers(imgUnchange, imgchange):
 
         #get homography matrix and all information of these matches(do all steps of RANSAC)
         HomographyMatrix, mask = cv2.findHomography(destination_points,source_points, cv2.RANSAC,5.0)
-        #matchesMask is a list, it's elements have just 2 value. value 1 means it's a inlier, 2 mean it's a outlier
+        #matchesMask is a list, it's elements have just 2 value. value 1 means it's a inlier, 0 mean it's a outlier
         matchesMask = mask.ravel().tolist() #inlier
     else:
         matchesMask = None
