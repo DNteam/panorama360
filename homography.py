@@ -4,9 +4,9 @@ import numpy as np
 MIN = 10
 def detect(imgUnchange, imgchange):
     #use Sift to find feature point
-    sift = cv2.xfeatures2d.SURF_create()
-    keyPoint1, destination1 = sift.detectAndCompute(imgUnchange,None)
-    keyPoint2, destination2 = sift.detectAndCompute(imgchange,None)
+    surf = cv2.xfeatures2d.SURF_create()
+    keyPoint1, destination1 = surf.detectAndCompute(imgUnchange,None)
+    keyPoint2, destination2 = surf.detectAndCompute(imgchange,None)
 
     # find the two similar feature with brute force matcher
     bf = cv2.BFMatcher()

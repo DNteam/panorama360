@@ -30,7 +30,7 @@ while index< len(imgList)-1:
     counter=0
     for i in range(0,len(imgList)):
         if i != index:
-            if hm.getInliers(imgList[index],imgList[i]) > 30:
+            if hm.getInliers(imgList[index],imgList[i]) >= 50:
                 counter+=1
     inliers.append(counter)
     index+=1
@@ -45,7 +45,7 @@ place = []
 wait=[]
 Max = 0
 if flag == 0:
-    order=[imgList[0]]
+    order=[0]
     value=[]
     for i in range(0,len(imgList)):
         value.append([])
@@ -64,7 +64,7 @@ if flag == 0:
             if value[i][j]>value[i][Max]:
                 Max = j
         if value[i][Max]>=50:
-            order.append(imgList[Max])
+            order.append(Max)
             value[Max][i]=0
             value[i][Max]=0
             i=Max
@@ -80,20 +80,20 @@ if flag == 0:
                 Max = j
         
         if value[i][Max]>=50:
-            order.insert(0,imgList[Max])
+            order.insert(0,Max)
             value[Max][i]=0
             value[i][Max]=0
             i=Max
         else:
             co=1
 
-    
-    mid = len(order)/2+1 
-    result=order[mid]
+       
+    mid = len(order)/2-1
+    result=imgList[order[mid]]
     index=mid -1
     while index>= 0:
-        homo,ct = hm.detect(result,order[index])
-        result,movedimg,xmin = hm.warpHomo(result,order[index],homo)
+        homo,ct = hm.detect(result,imgList[order[index]])
+        result,movedimg,xmin = hm.warpHomo(result,imgList[order[index]],homo)
         h,w,c = movedimg.shape
         for i in range(0,h):
             for j in range(0,w):
@@ -103,8 +103,8 @@ if flag == 0:
 
     index=mid +1
     while index< len(order):
-        homo,ct = hm.detect(result,order[index])
-        result,movedimg,xmin = hm.warpHomo(result,order[index],homo)
+        homo,ct = hm.detect(result,imgList[order[index]])
+        result,movedimg,xmin = hm.warpHomo(result,imgList[order[index]],homo)
         h,w,c = movedimg.shape
         for i in range(0,h):
             for j in range(0,w):
